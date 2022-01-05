@@ -11,39 +11,6 @@ class CounterPage extends StatelessWidget {
       body: const Center(
         child: _CounterText(),
       ),
-      floatingActionButton: Column(
-        verticalDirection: VerticalDirection.down,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                backgroundColor: Colors.green.shade500,
-                onPressed: () => context.read<CounterBloc>().add(CounterIncrementEvent()),
-                child: Icon(Icons.add)
-              ),
-              FloatingActionButton(
-                  backgroundColor: Colors.red.shade500,
-                  onPressed: () => context.read<CounterBloc>().add(CounterDecrementEvent()),
-                  child: Icon(Icons.remove)
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              FloatingActionButton(
-                onPressed: () => context.read<CounterBloc>().add(CounterResetEvent()),
-                child: Icon(Icons.refresh)
-              ),
-            ],
-          ),
-        ],
-      ),
     );
   }
 }
@@ -55,13 +22,71 @@ class _CounterText extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.watch<CounterBloc>().state;
     if (state is CounterInitialState) {
-      return const FlutterLogo(size:150);
-    } else if (state is CounterLoadingState) {
-      return const CircularProgressIndicator();
+      return const FlutterLogo(size: 150);
     } else if (state is CounterLoadedState) {
-      return Text(
-        "${state.counter}",
-        style: Theme.of(context).textTheme.headline4,
+      return Scaffold(
+        backgroundColor: Colors.blueAccent,
+        appBar: AppBar(
+          backgroundColor: Colors.blue,
+          centerTitle: true,
+          title: Text(
+            'Counter BLoC',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () =>
+                context.read<CounterBloc>().add(CounterResetEvent()),
+            child: Icon(Icons.refresh)),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                "Tap '-' to Decrement",
+                style: TextStyle(color: Colors.white),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white70,
+                ),
+                margin: const EdgeInsets.all(10),
+                height: 50,
+                width: 150,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.remove, color: Colors.black54),
+                      onPressed: () {
+                        context
+                            .read<CounterBloc>()
+                            .add(CounterDecrementEvent());
+                      },
+                    ),
+                    Text(
+                      "${state.counter}",
+                      style: Theme.of(context).textTheme.headline4,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.add, color: Colors.black54),
+                      onPressed: () {
+                        context
+                            .read<CounterBloc>()
+                            .add(CounterIncrementEvent());
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              const Text(
+                "Tap '+' to Increment",
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
       );
     }
     return const SizedBox.shrink();

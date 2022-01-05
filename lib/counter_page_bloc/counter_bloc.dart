@@ -14,23 +14,17 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
       emit(const CounterLoadedState(counter: 0));
     });
 
-    on<CounterResetEvent>((event, emit) async {
-      emit(CounterLoadingState());
-      await Future.delayed(Duration(milliseconds: 500));
+    on<CounterResetEvent>((event, emit)  {
       emit(const CounterLoadedState(counter: 0));
     });
 
-    on<CounterIncrementEvent>((event, emit) async {
+    on<CounterIncrementEvent>((event, emit) {
         final counter = (state as CounterLoadedState).counter;
-        emit(CounterLoadingState());
-        await Future.delayed(Duration(milliseconds: 200));
         emit(CounterLoadedState(counter: counter + 1));
     });
 
-    on<CounterDecrementEvent>((event, emit) async {
+    on<CounterDecrementEvent>((event, emit) {
         final counter = (state as CounterLoadedState).counter;
-        emit(CounterLoadingState());
-        await Future.delayed(Duration(milliseconds: 200));
         emit(CounterLoadedState(counter: counter - 1));
     });
   }

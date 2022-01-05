@@ -9,8 +9,6 @@ abstract class CounterState extends Equatable {
 
 class CounterInitialState extends CounterState{}
 
-class CounterLoadingState extends CounterState{}
-
 class CounterLoadedState extends CounterState{
   final int counter;
 
