@@ -25,9 +25,9 @@ class _CounterText extends StatelessWidget {
       return const FlutterLogo(size: 150);
     } else if (state is CounterLoadedState) {
       return Scaffold(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFFFFA883),
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color(0xFFF57D49),
           centerTitle: true,
           title: Text(
             'Counter BLoC',
@@ -35,6 +35,7 @@ class _CounterText extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color(0xFFF57D49),
             onPressed: () =>
                 context.read<CounterBloc>().add(CounterResetEvent()),
             child: Icon(Icons.refresh)),
