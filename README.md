@@ -18,3 +18,9 @@ The app is developed in purpose to increase my BLoC State Management understandi
 
 While Counter Initial State app shows us Flutter Logo. Then after 5000 milliseconds Flutter provide us Scaffold with AppBar and Counter in the centre. Press right button to increment and left button to decrement. Press reset button to return number to 0.
 
+## Demo
+
+
+https://user-images.githubusercontent.com/89991497/157813855-e1bb098b-1858-4d9b-858f-bee0897e36d8.mp4
+
+
